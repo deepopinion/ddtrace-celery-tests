@@ -1,13 +1,19 @@
 import logging
 
 from ddtrace import tracer
+from ddtrace.context import Context
 
 from base import app
 
 logger = logging.getLogger("worker")
 
-@app.task
-def check():
+@app.task(bind=True)
+def check(self):
+    headers = self.request.headers
+    tracer.context_provider.activate(Context(
+        trace_id=headers["trace_id"],
+        span_id=headers["span_id"],
+    ))
     with tracer.trace("checking") as span:
         logger.info(
             "Worker got trace ID %s, span ID %s",
