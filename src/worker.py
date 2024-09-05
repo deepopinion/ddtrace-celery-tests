@@ -15,4 +15,7 @@ def check():
             "Worker got trace ID %s, span ID %s",
             span.trace_id, span.span_id
         )
-    return 'hello world'
+        return {
+            "worker_trace_id": span.trace_id,
+            "worker_span_id": span.span_id,
+        }
