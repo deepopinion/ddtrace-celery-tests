@@ -1,0 +1,33 @@
+services:
+  redis:
+    image: redis
+    hostname: redis
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  worker:
+    build: .
+    env_file:
+      - ".env.base"
+      - ".env"
+    entrypoint:
+      - /app/start-worker.sh
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./src
+          target: /app/src
+
+  nagger:
+    build: .
+    env_file:
+      - ".env.base"
+      - ".env"
+    entrypoint:
+      - /app/start-nagger.sh
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./src
+          target: /app/src

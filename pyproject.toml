@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "ddtrace-celery-tests"
+version = "0.1.0"
+description = "Just a test repo to verify Celery with ddtrace"
+authors = ["Diogo Baeder <diogobaeder@yahoo.com.br>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+celery = {extras = ["redis"], version = "^5.4.0"}
+ddtrace = "^2.11.3"
+datadog = "^0.50.0"
+redis = "^5.0.8"
+circus = "^0.18.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
