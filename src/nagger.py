@@ -15,11 +15,7 @@ def nag():
     try:
         while True:
             with tracer.trace("nagging") as span:
-                headers = {
-                    "trace_id": span.trace_id,
-                    "span_id": span.span_id,
-                }
-                async_task = check.apply_async(headers=headers)
+                async_task = check.delay()
                 result = async_task.get()
                 logger.info("Got result from worker: %s", result)
                 logger.info(
