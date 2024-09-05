@@ -1,5 +1,3 @@
-from ddtrace import patch_all; patch_all()
-
 import logging
 
 from ddtrace import tracer

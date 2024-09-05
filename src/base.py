@@ -1,3 +1,5 @@
+from ddtrace import patch_all; patch_all(celery=True)
+
 import logging
 from os import environ
 
