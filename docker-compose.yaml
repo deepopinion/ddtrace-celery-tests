@@ -12,7 +12,6 @@ services:
     image: gcr.io/datadoghq/agent:7
     hostname: datadog-agent
     container_name: datadog-agent
-#    pid: host
     env_file:
       - ".env.base"
       - ".env"
@@ -27,6 +26,8 @@ services:
     env_file:
       - ".env.base"
       - ".env"
+    environment:
+      DD_SERVICE: ddtrace-celery-tests-worker
     entrypoint:
       - /app/start-worker.sh
     develop:
@@ -42,6 +43,8 @@ services:
     env_file:
       - ".env.base"
       - ".env"
+    environment:
+      DD_SERVICE: ddtrace-celery-tests-nagger
     entrypoint:
       - /app/start-nagger.sh
     develop:
