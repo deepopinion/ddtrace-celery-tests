@@ -1,4 +1,5 @@
 import logging
+import time
 
 from ddtrace import tracer
 
@@ -14,6 +15,7 @@ def check():
             "Worker got trace ID %s, span ID %s",
             span.trace_id, span.span_id
         )
+        time.sleep(1)
         return {
             "worker_trace_id": span.trace_id,
             "worker_span_id": span.span_id,
