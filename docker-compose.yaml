@@ -30,11 +30,6 @@ services:
       DD_SERVICE: ddtrace-celery-tests-worker
     entrypoint:
       - /app/start-worker.sh
-    develop:
-      watch:
-        - action: sync+restart
-          path: ./src
-          target: /app/src
     labels:
       com.datadoghq.ad.logs: '[{"source": "app", "service": "worker"}]'
 
@@ -47,10 +42,5 @@ services:
       DD_SERVICE: ddtrace-celery-tests-nagger
     entrypoint:
       - /app/start-nagger.sh
-    develop:
-      watch:
-        - action: sync+restart
-          path: ./src
-          target: /app/src
     labels:
       com.datadoghq.ad.logs: '[{"source": "app", "service": "nagger"}]'

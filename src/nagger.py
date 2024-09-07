@@ -3,19 +3,24 @@ import logging
 
 from ddtrace import tracer
 
+from base import debug_trace
 from worker import check
 
 
-SLEEP_TIME = 3
+SLEEP_TIME = 10
 
-logger = logging.getLogger("nagger")
+logger = logging.getLogger("ddtrace-celery-tests.nagger")
 
 
 def nag():
     try:
         while True:
+            logger.info("***** Starting new nag *****")
             with tracer.trace("nagging") as span:
+                debug_trace()
+                time.sleep(0.1)
                 async_task = check.apply_async()
+                time.sleep(0.1)
                 result = async_task.get()
                 logger.info("Got result from worker: %s", result)
                 logger.info(
@@ -30,7 +35,9 @@ def nag():
                     logger.info("Spans match! :-)")
                 else:
                     logger.warning("Spans don't match... :-(")
-                time.sleep(SLEEP_TIME)
+            logger.info("***** Finished nag *****")
+            logging.getLogger().handlers[0].flush()
+            time.sleep(SLEEP_TIME)
     except KeyboardInterrupt:
         exit("Exiting...")
 
