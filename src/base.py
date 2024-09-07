@@ -1,6 +1,5 @@
 import ddtrace
-ddtrace.patch_all(celery=True)
-ddtrace.patch(celery=True)
+ddtrace.patch_all(langchain=False)
 
 import logging
 from os import environ
